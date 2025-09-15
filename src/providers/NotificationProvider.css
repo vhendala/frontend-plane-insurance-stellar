@@ -1,0 +1,25 @@
+.notification-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notification {
+  transition: all 0.3s ease-in-out;
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.notification.slide-in {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.notification.slide-out {
+  transform: translateX(100%);
+  opacity: 0;
+}
