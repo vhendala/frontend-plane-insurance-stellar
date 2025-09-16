@@ -1,8 +1,10 @@
 import { useWallet } from '../hooks/useWallet'
+import { useWalletBalance } from '../hooks/useWalletBalance'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/Card'
 
 export default function Dashboard() {
   const { address } = useWallet()
+  const { xlm, isLoading } = useWalletBalance()
 
   if (!address) {
     return (
@@ -28,6 +30,16 @@ export default function Dashboard() {
       </h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Wallet Balance</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-3xl font-bold text-[#00A7B5]">
+              {isLoading ? 'Loading...' : `${xlm} XLM`}
+            </p>
+          </CardContent>
+        </Card>
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">Active Policies</CardTitle>
