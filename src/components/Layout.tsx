@@ -32,9 +32,9 @@ export default function Layout({ children }: LayoutProps) {
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-[#FDDA24] group-hover:text-[#B7ACE8] transition-colors duration-200">
-                    Stellar Flight
+                    BPFI
                   </h1>
-                  <p className="text-sm text-[#F6F7F8]/70">Insurance</p>
+                  <p className="text-sm text-[#F6F7F8]/70">Stellar</p>
                 </div>
               </Link>
             </div>
