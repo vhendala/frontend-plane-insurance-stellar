@@ -8,17 +8,21 @@ A modern React application for flight insurance powered by the Stellar network, 
 - 💰 **Balance Management**: View and manage XLM balances
 - 🛡️ **Flight Insurance**: Purchase insurance policies for flights
 - 📊 **Dashboard**: Track policies and claims
-- 🎨 **Modern UI**: Built with Stellar Design System and Tailwind CSS
+- 🎨 **Modern UI**: Custom components styled with Tailwind CSS
+- ✈️ **Airlines list**: Integrated with a local OpenFlights API for airline data
 - ⚡ **Fast & Secure**: Powered by Stellar blockchain technology
 
 ## Tech Stack
 
 - **React 19** with TypeScript
 - **Stellar Wallets Kit** for wallet integration
-- **Stellar Design System** for UI components
 - **Tailwind CSS** for styling
 - **React Router** for navigation
 - **Vite** for build tooling
+
+### Optional local API (OpenFlights)
+- **Express** server that exposes airline data from OpenFlights CSV
+- **csv-parser**, **node-cache**, native **https**
 
 ## Getting Started
 
@@ -56,6 +60,19 @@ npm run dev
 ```
 
 6. Open your browser and navigate to `http://localhost:5173`
+
+### (Optional) Start the OpenFlights API server
+If you want to populate the Airline select with real data, start the local API:
+
+```bash
+cd openflights-api/openflights-api
+npm install
+npm start
+```
+
+API endpoints:
+- Health check: `http://localhost:3001/api/health`
+- Airlines: `http://localhost:3001/api/airlines`
 
 ## Available Scripts
 
@@ -111,6 +128,11 @@ src/
 │   └── wallet.ts
 └── contracts/          # Stellar contract utilities
     └── util.ts
+
+openflights-api/
+└── openflights-api/     # Local Express API for airline data
+    ├── index.js         # API server (ports 3001 by default)
+    └── README.md
 ```
 
 ## Contributing
