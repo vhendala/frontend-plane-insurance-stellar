@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useWallet } from '../hooks/useWallet'
 import { useNotification } from '../hooks/useNotification'
 import { Button } from '../ui/Button'
@@ -12,12 +12,6 @@ interface InsurancePlan {
   coverage: number
   description: string
   popular?: boolean
-}
-
-interface Airline {
-  name: string
-  iata: string
-  country: string
 }
 
 const insurancePlans: InsurancePlan[] = [
@@ -49,43 +43,11 @@ export default function BuyInsurance() {
   const { address } = useWallet()
   const { addNotification } = useNotification()
   const [selectedPlan, setSelectedPlan] = useState<InsurancePlan | null>(null)
-  const [airlines, setAirlines] = useState<Airline[]>([])
-  const [isLoadingAirlines, setIsLoadingAirlines] = useState(true)
   const [formData, setFormData] = useState({
     flightNumber: '',
     departureDate: '',
-    airline: '',
   })
-
-  // Carregar companhias aéreas da API
-  useEffect(() => {
-    const loadAirlines = async () => {
-      try {
-        setIsLoadingAirlines(true)
-        const response = await fetch('http://localhost:3001/api/airlines')
-        const data = await response.json()
-        
-        if (data.success) {
-          // Ordenar por nome para facilitar a busca
-          const sortedAirlines = data.data.sort((a: Airline, b: Airline) => 
-            a.name.localeCompare(b.name)
-          )
-          setAirlines(sortedAirlines)
-        } else {
-          addNotification('Erro ao carregar companhias aéreas', 'error')
-        }
-      } catch (error) {
-        console.error('Erro ao carregar companhias aéreas:', error)
-        addNotification('Erro ao carregar companhias aéreas', 'error')
-      } finally {
-        setIsLoadingAirlines(false)
-      }
-    }
-
-    loadAirlines()
-  }, [addNotification])
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
@@ -217,29 +179,6 @@ export default function BuyInsurance() {
                       onChange={handleInputChange}
                       required
                     />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-bold text-[#0F0F0F] mb-2">
-                      Airline
-                    </label>
-                    <select
-                      name="airline"
-                      value={formData.airline}
-                      onChange={handleInputChange}
-                      disabled={isLoadingAirlines}
-                      className="w-full h-12 px-4 bg-[#F6F7F8] rounded-xl border-2 border-[#D6D2C4] focus:border-[#00A7B5] focus:outline-none transition-colors duration-200 text-[#0F0F0F] disabled:opacity-50 disabled:cursor-not-allowed"
-                      required
-                    >
-                      <option value="">
-                        {isLoadingAirlines ? 'Loading airlines...' : 'Select an airline'}
-                      </option>
-                      {airlines.map((airline) => (
-                        <option key={airline.iata} value={airline.iata}>
-                          {airline.name} ({airline.iata}) - {airline.country}
-                        </option>
-                      ))}
-                    </select>
                   </div>
 
                   <div>
