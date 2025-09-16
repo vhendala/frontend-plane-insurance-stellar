@@ -49,9 +49,10 @@ export default function BuyInsurance() {
   })
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
+    const nextValue = name === 'flightNumber' ? value.replace(/\D/g, '') : value
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: nextValue
     }))
   }
 
@@ -163,7 +164,7 @@ export default function BuyInsurance() {
                       name="flightNumber"
                       value={formData.flightNumber}
                       onChange={handleInputChange}
-                      placeholder="e.g., AA123"
+                      placeholder="e.g., 1234"
                       required
                     />
                   </div>
